@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "528809076816",
+    "project_id": "kotlingerenciame",
+    "storage_bucket": "kotlingerenciame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528809076816:android:b2eda45262f71fe391c955",
+        "android_client_info": {
+          "package_name": "com.thdlopes.kotlingerenciame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528809076816-8t33gha3pivv6gfjafu6ra2gu75aacog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAo63qoMzydsxhmUDl0acceT13eH7Cam0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528809076816-8t33gha3pivv6gfjafu6ra2gu75aacog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
