@@ -16,7 +16,7 @@ class FinanceAdapter: RecyclerView.Adapter<FinanceAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.textViewName.text = finances[position].name
-        holder.binding.textViewDate.text = finances[position].day// + "/" + finances[position].month + "/" + finances[position].year
+        holder.binding.textViewDate.text = finances[position].day
     }
 
     override fun getItemCount(): Int {
