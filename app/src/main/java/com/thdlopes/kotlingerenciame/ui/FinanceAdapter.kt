@@ -15,15 +15,22 @@ class FinanceAdapter: RecyclerView.Adapter<FinanceAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.binding.textViewName.text = finances[position].name
+        holder.binding.textViewDate.text = finances[position].day// + "/" + finances[position].month + "/" + finances[position].year
     }
 
     override fun getItemCount(): Int {
         return finances.size
     }
 
-    inner class ViewHolder (val binding: RecyclerViewFinanceBinding): RecyclerView.ViewHolder(binding.root){
+    fun addFinance(finance: Finance){
+        if(!finances.contains(finance)){
+            finances.add(finance)
+        }
+        notifyDataSetChanged()
+    }
 
+    inner class ViewHolder (val binding: RecyclerViewFinanceBinding): RecyclerView.ViewHolder(binding.root){
     }
 
 }
