@@ -8,7 +8,8 @@ data class Finance(
     var name: String? = null,
     var day: String? = null,
     var month: String? = null,
-    var year: String? = null
+    var year: String? = null,
+    var value: String? = null
 ) {
 
 }

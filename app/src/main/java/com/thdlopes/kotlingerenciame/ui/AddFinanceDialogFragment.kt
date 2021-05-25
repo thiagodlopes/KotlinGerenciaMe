@@ -55,6 +55,7 @@ class AddFinanceDialogFragment : DialogFragment() {
             val day = binding.editTextDay.text.toString().trim()
             val month = binding.editTextMonth.text.toString().trim()
             val year = binding.editTextYear.text.toString().trim()
+            val value = binding.editTextFinanceValue.text.toString().trim()
 
             if(name.isEmpty()){
                 binding.editTextFinanceName.error = "Este campo é obrigatório"
@@ -76,11 +77,17 @@ class AddFinanceDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
+            if(value.isEmpty()){
+                binding.editTextFinanceValue.error = "Este campo é obrigatório"
+                return@setOnClickListener
+            }
+
             val finance = Finance()
             finance.name = name
             finance.day = day
             finance.month = month
             finance.year = year
+            finance.value = value
 
             viewModel.addFinance(finance)
 
