@@ -46,7 +46,12 @@ class FinanceViewModel: ViewModel() {
             _finance.value = finance!!
         }
 
-        override fun onChildRemoved(snapshot: DataSnapshot) {}
+        override fun onChildRemoved(snapshot: DataSnapshot) {
+            val finance = snapshot.getValue(Finance::class.java)
+            finance?.id = snapshot.key
+            finance?.isDeleted = true
+            _finance.value = finance!!
+        }
 
         override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
@@ -62,6 +67,17 @@ class FinanceViewModel: ViewModel() {
         dbfinances.child(finance.id!!).setValue(finance)
             .addOnCompleteListener{
                 if (it.isSuccessful){
+                    _result.value = null
+                }else{
+                    _result.value = it.exception
+                }
+            }
+    }
+
+    fun deleteFinance(finance: Finance){
+        dbfinances.child(finance.id!!).setValue(null)
+            .addOnCompleteListener {
+                if(it.isSuccessful){
                     _result.value = null
                 }else{
                     _result.value = it.exception

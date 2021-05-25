@@ -30,7 +30,11 @@ class FinanceAdapter: RecyclerView.Adapter<FinanceAdapter.ViewHolder>() {
             finances.add(finance)
         }else{
             val index = finances.indexOf(finance)
-            finances[index] = finance
+            if(finance.isDeleted){
+                finances.removeAt(index)
+            }else {
+                finances[index] = finance
+            }
         }
         notifyDataSetChanged()
     }

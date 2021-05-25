@@ -1,10 +1,12 @@
 package com.thdlopes.kotlingerenciame.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -74,6 +76,17 @@ class FinanceFragment : Fragment() {
             when(direction){
                 ItemTouchHelper.RIGHT -> {
                     UpdateFinanceDialogFragment(currentFinance).show(childFragmentManager, "")
+                }
+
+                ItemTouchHelper.LEFT -> {
+                    AlertDialog.Builder(requireContext()).also {
+                        it.setTitle("Tem certeza que quer deletar '" + currentFinance.name + "' ?" )
+                        it.setPositiveButton("Sim, deletar"){ dialog, which ->
+                            viewModel.deleteFinance(currentFinance)
+                            binding.recyclerViewFinances.adapter?.notifyItemRemoved(position)
+                            Toast.makeText(context, "Finança deletada", Toast.LENGTH_SHORT).show()
+                        }
+                    }.create().show()
                 }
             }
             binding.recyclerViewFinances.adapter?.notifyDataSetChanged()
