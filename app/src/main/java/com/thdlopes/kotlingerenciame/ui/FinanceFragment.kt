@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.thdlopes.kotlingerenciame.R
 import com.thdlopes.kotlingerenciame.data.FinanceViewModel
 import com.thdlopes.kotlingerenciame.databinding.FragmentFinanceBinding
@@ -50,6 +52,32 @@ class FinanceFragment : Fragment() {
         })
 
         viewModel.getRealTimeUpdate()
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewFinances)
+
+    }
+
+    private var simpleCallback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)){
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            var position = viewHolder.adapterPosition
+            var currentFinance = adapter.finances[position]
+
+            when(direction){
+                ItemTouchHelper.RIGHT -> {
+                    UpdateFinanceDialogFragment(currentFinance).show(childFragmentManager, "")
+                }
+            }
+            binding.recyclerViewFinances.adapter?.notifyDataSetChanged()
+        }
 
     }
 

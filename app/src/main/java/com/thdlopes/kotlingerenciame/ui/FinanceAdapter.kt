@@ -1,5 +1,6 @@
 package com.thdlopes.kotlingerenciame.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,9 @@ class FinanceAdapter: RecyclerView.Adapter<FinanceAdapter.ViewHolder>() {
     fun addFinance(finance: Finance){
         if(!finances.contains(finance)){
             finances.add(finance)
+        }else{
+            val index = finances.indexOf(finance)
+            finances[index] = finance
         }
         notifyDataSetChanged()
     }

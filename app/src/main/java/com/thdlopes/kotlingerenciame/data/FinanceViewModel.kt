@@ -40,7 +40,11 @@ class FinanceViewModel: ViewModel() {
             _finance.value = finance!!
         }
 
-        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            val finance = snapshot.getValue(Finance::class.java)
+            finance?.id = snapshot.key
+            _finance.value = finance!!
+        }
 
         override fun onChildRemoved(snapshot: DataSnapshot) {}
 
@@ -52,6 +56,17 @@ class FinanceViewModel: ViewModel() {
 
     fun getRealTimeUpdate(){
         dbfinances.addChildEventListener(childEventListener)
+    }
+
+    fun updateFinance(finance: Finance){
+        dbfinances.child(finance.id!!).setValue(finance)
+            .addOnCompleteListener{
+                if (it.isSuccessful){
+                    _result.value = null
+                }else{
+                    _result.value = it.exception
+                }
+            }
     }
 
     override fun onCleared() {

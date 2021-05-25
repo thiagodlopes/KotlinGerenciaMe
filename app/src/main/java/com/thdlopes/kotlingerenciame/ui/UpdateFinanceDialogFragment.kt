@@ -13,10 +13,11 @@ import com.thdlopes.kotlingerenciame.R
 import com.thdlopes.kotlingerenciame.data.Finance
 import com.thdlopes.kotlingerenciame.data.FinanceViewModel
 import com.thdlopes.kotlingerenciame.databinding.FragmentAddFinanceDialogBinding
+import com.thdlopes.kotlingerenciame.databinding.FragmentUpdateFinanceDialogBinding
 
-class AddFinanceDialogFragment : DialogFragment() {
+class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment() {
 
-    private var _binding: FragmentAddFinanceDialogBinding? = null
+    private var _binding: FragmentUpdateFinanceDialogBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: FinanceViewModel
@@ -31,7 +32,7 @@ class AddFinanceDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddFinanceDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentUpdateFinanceDialogBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProviders.of(this).get(FinanceViewModel::class.java)
         return binding.root
@@ -40,23 +41,18 @@ class AddFinanceDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.result.observe(viewLifecycleOwner, Observer {
-            val message = if(it == null){
-                getString(R.string.added_finance)
-            } else {
-                getString(R.string.error, it.message)
-            }
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            dismiss()
-        })
+        binding.editTextFinanceName.setText(finance.name)
+        binding.editTextDay.setText(finance.day)
+        binding.editTextMonth.setText(finance.month)
+        binding.editTextYear.setText(finance.year)
+        binding.editTextFinanceValue.setText(finance.value)
 
-        binding.buttonAddFinance.setOnClickListener {
+        binding.buttonUpdateFinance.setOnClickListener {
             val name = binding.editTextFinanceName.text.toString().trim()
             val day = binding.editTextDay.text.toString().trim()
             val month = binding.editTextMonth.text.toString().trim()
             val year = binding.editTextYear.text.toString().trim()
             val value = binding.editTextFinanceValue.text.toString().trim()
-            //val moviment = binding.spinnerMoviment.selectedItem.toString().trim()
 
             if(name.isEmpty()){
                 binding.editTextFinanceName.error = "Este campo é obrigatório"
@@ -83,15 +79,15 @@ class AddFinanceDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
-            val finance = Finance()
             finance.name = name
             finance.day = day
             finance.month = month
             finance.year = year
             finance.value = value
-//            finance.moviment = moviment
 
-            viewModel.addFinance(finance)
+            viewModel.updateFinance(finance)
+            dismiss()
+            Toast.makeText(context, "Finança alterada", Toast.LENGTH_SHORT).show()
 
         }
 
