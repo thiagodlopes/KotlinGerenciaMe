@@ -6,4 +6,6 @@
     <string name="error">%1$s</string>
     <string name="add_finance">Cadastrar Finança</string>
     <string name="edit_finance">Atualizar Finança</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
