@@ -87,12 +87,44 @@
             android:inputType="number"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        app:singleSelection="true"
+        android:id="@+id/chipGroup">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipLoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gasto"
+            android:layout_marginRight="10dp"
+            style="@style/CustomChipStyleLoss"
+            app:chipStrokeWidth="1dp"
+            app:chipStrokeColor="@color/red"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ganho"
+            android:layout_marginLeft="10dp"
+            style="@style/CustomChipStyleGain"
+            app:chipStrokeWidth="1dp"
+            app:chipStrokeColor="@color/green"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
     <Button
         android:id="@+id/buttonAddFinance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:text="Enviar"
+        app:backgroundTint="@null"
         android:textColor="@color/white"/>
 
 

@@ -13,4 +13,22 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CustomChipStyleLoss" parent="Widget.MaterialComponents.Chip.Filter">
+
+        <item name="chipBackgroundColor">@drawable/chip_loss_background</item>
+        <item name="android:textColor">@drawable/chip_loss_text</item>
+        <item name="checkedIconTint">@color/white</item>
+        <item name="rippleColor">@color/alpha_white</item>
+
+    </style>
+
+    <style name="CustomChipStyleGain" parent="Widget.MaterialComponents.Chip.Filter">
+
+        <item name="chipBackgroundColor">@drawable/chip_gain_background</item>
+        <item name="android:textColor">@drawable/chip_gain_text</item>
+        <item name="checkedIconTint">@color/white</item>
+        <item name="rippleColor">@color/alpha_white</item>
+
+    </style>
 </resources>

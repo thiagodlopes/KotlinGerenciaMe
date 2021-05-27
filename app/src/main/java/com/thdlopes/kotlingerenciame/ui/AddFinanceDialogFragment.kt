@@ -1,5 +1,6 @@
 package com.thdlopes.kotlingerenciame.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.chip.ChipGroup
 import com.thdlopes.kotlingerenciame.R
 import com.thdlopes.kotlingerenciame.data.Finance
 import com.thdlopes.kotlingerenciame.data.FinanceViewModel
@@ -18,6 +20,7 @@ class AddFinanceDialogFragment : DialogFragment() {
 
     private var _binding: FragmentAddFinanceDialogBinding? = null
     private val binding get() = _binding!!
+    private var getMoviment: String? = null
 
     private lateinit var viewModel: FinanceViewModel
 
@@ -50,12 +53,15 @@ class AddFinanceDialogFragment : DialogFragment() {
             dismiss()
         })
 
+       getMoviment()
+
         binding.buttonAddFinance.setOnClickListener {
             val name = binding.editTextFinanceName.text.toString().trim()
             val day = binding.editTextDay.text.toString().trim()
             val month = binding.editTextMonth.text.toString().trim()
             val year = binding.editTextYear.text.toString().trim()
             val value = binding.editTextFinanceValue.text.toString().trim()
+            val moviment = getMoviment
 
             if(name.isEmpty()){
                 binding.editTextFinanceName.error = "Este campo é obrigatório"
@@ -82,12 +88,18 @@ class AddFinanceDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
+            if(moviment == null){
+                binding.editTextFinanceValue.error = "Selecione o tipo de finança"
+                return@setOnClickListener
+            }
+
             val finance = Finance()
             finance.name = name
             finance.day = day
             finance.month = month
             finance.year = year
             finance.value = value
+            finance.moviment = moviment
 
             viewModel.addFinance(finance)
 
@@ -95,5 +107,31 @@ class AddFinanceDialogFragment : DialogFragment() {
 
     }
 
+
+    fun getMoviment(){
+        binding.chipGain.setOnClickListener {
+            getMoviment = binding.chipGain.text.toString().trim()
+            makeToast()
+            changeBackgroundColor(true)
+        }
+
+        binding.chipLoss.setOnClickListener {
+            getMoviment = binding.chipLoss.text.toString().trim()
+            makeToast()
+            changeBackgroundColor(false)
+        }
+    }
+
+    fun makeToast(){
+        Toast.makeText(requireContext(), getMoviment, Toast.LENGTH_SHORT).show()
+    }
+
+    fun changeBackgroundColor(isGain: Boolean){
+        if (isGain){
+            binding.buttonAddFinance.setBackgroundColor(resources.getColor(R.color.green))
+        } else {
+            binding.buttonAddFinance.setBackgroundColor(resources.getColor(R.color.red))
+        }
+    }
 
 }

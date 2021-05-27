@@ -10,6 +10,7 @@ data class Finance(
     var month: String? = null,
     var year: String? = null,
     var value: String? = null,
+    var moviment: String? = null,
 
     @get:Exclude
     var isDeleted: Boolean = false
@@ -27,6 +28,7 @@ data class Finance(
         result = 31 * result + (month?.hashCode() ?: 0)
         result = 31 * result + (year?.hashCode() ?: 0)
         result = 31 * result + (value?.hashCode() ?: 0)
+        result = 31 * result + (moviment?.hashCode() ?: 0)
         result = 31 * result + isDeleted.hashCode()
         return result
     }

@@ -12,13 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.thdlopes.kotlingerenciame.R
 import com.thdlopes.kotlingerenciame.data.Finance
 import com.thdlopes.kotlingerenciame.data.FinanceViewModel
-import com.thdlopes.kotlingerenciame.databinding.FragmentAddFinanceDialogBinding
 import com.thdlopes.kotlingerenciame.databinding.FragmentUpdateFinanceDialogBinding
 
 class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment() {
 
     private var _binding: FragmentUpdateFinanceDialogBinding? = null
     private val binding get() = _binding!!
+    private lateinit var getMoviment: String
 
     private lateinit var viewModel: FinanceViewModel
 
@@ -41,6 +41,17 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        getMoviment = finance.moviment.toString()
+        if (getMoviment == "Ganho"){
+            binding.chipGain.isChecked = true
+            changeBackgroundColor(true)
+        } else {
+            binding.chipLoss.isChecked = true
+            changeBackgroundColor(false)
+        }
+
+        getMoviment()
+
         binding.editTextFinanceName.setText(finance.name)
         binding.editTextDay.setText(finance.day)
         binding.editTextMonth.setText(finance.month)
@@ -53,6 +64,7 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
             val month = binding.editTextMonth.text.toString().trim()
             val year = binding.editTextYear.text.toString().trim()
             val value = binding.editTextFinanceValue.text.toString().trim()
+            val moviment = getMoviment
 
             if(name.isEmpty()){
                 binding.editTextFinanceName.error = "Este campo é obrigatório"
@@ -84,6 +96,7 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
             finance.month = month
             finance.year = year
             finance.value = value
+            finance.moviment = moviment
 
             viewModel.updateFinance(finance)
             dismiss()
@@ -91,6 +104,32 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
 
         }
 
+    }
+
+    fun getMoviment(){
+        binding.chipGain.setOnClickListener {
+            getMoviment = binding.chipGain.text.toString().trim()
+            makeToast()
+            changeBackgroundColor(true)
+        }
+
+        binding.chipLoss.setOnClickListener {
+            getMoviment = binding.chipLoss.text.toString().trim()
+            makeToast()
+            changeBackgroundColor(false)
+        }
+    }
+
+    fun makeToast(){
+        Toast.makeText(requireContext(), getMoviment, Toast.LENGTH_SHORT).show()
+    }
+
+    fun changeBackgroundColor(isGain: Boolean){
+        if (isGain){
+            binding.buttonUpdateFinance.setBackgroundColor(resources.getColor(R.color.green))
+        } else {
+            binding.buttonUpdateFinance.setBackgroundColor(resources.getColor(R.color.red))
+        }
     }
 
 
