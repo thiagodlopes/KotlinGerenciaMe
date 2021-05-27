@@ -108,7 +108,7 @@ class AddFinanceDialogFragment : DialogFragment() {
     }
 
 
-    fun getMoviment(){
+    private fun getMoviment(){
         binding.chipGain.setOnClickListener {
             getMoviment = binding.chipGain.text.toString().trim()
             makeToast()
@@ -122,11 +122,11 @@ class AddFinanceDialogFragment : DialogFragment() {
         }
     }
 
-    fun makeToast(){
+    private fun makeToast(){
         Toast.makeText(requireContext(), getMoviment, Toast.LENGTH_SHORT).show()
     }
 
-    fun changeBackgroundColor(isGain: Boolean){
+    private fun changeBackgroundColor(isGain: Boolean){
         if (isGain){
             binding.buttonAddFinance.setBackgroundColor(resources.getColor(R.color.green))
         } else {

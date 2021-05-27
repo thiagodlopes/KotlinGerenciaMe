@@ -100,7 +100,7 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
 
     }
 
-    fun setMoviment(){
+    private fun setMoviment(){
         if (getMoviment == "Ganho"){
             binding.chipGain.isChecked = true
             changeBackgroundColor(true)
@@ -110,7 +110,7 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
         }
     }
 
-    fun getMoviment(){
+    private fun getMoviment(){
         binding.chipGain.setOnClickListener {
             getMoviment = binding.chipGain.text.toString().trim()
             makeToast()
@@ -124,11 +124,11 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
         }
     }
 
-    fun makeToast(){
+    private fun makeToast(){
         Toast.makeText(requireContext(), getMoviment, Toast.LENGTH_SHORT).show()
     }
 
-    fun changeBackgroundColor(isGain: Boolean){
+    private fun changeBackgroundColor(isGain: Boolean){
         if (isGain){
             binding.buttonUpdateFinance.setBackgroundColor(resources.getColor(R.color.green))
         } else {
