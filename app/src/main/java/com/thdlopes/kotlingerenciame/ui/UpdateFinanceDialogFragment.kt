@@ -42,14 +42,8 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
         super.onActivityCreated(savedInstanceState)
 
         getMoviment = finance.moviment.toString()
-        if (getMoviment == "Ganho"){
-            binding.chipGain.isChecked = true
-            changeBackgroundColor(true)
-        } else {
-            binding.chipLoss.isChecked = true
-            changeBackgroundColor(false)
-        }
 
+        setMoviment()
         getMoviment()
 
         binding.editTextFinanceName.setText(finance.name)
@@ -104,6 +98,16 @@ class UpdateFinanceDialogFragment(private val finance: Finance) : DialogFragment
 
         }
 
+    }
+
+    fun setMoviment(){
+        if (getMoviment == "Ganho"){
+            binding.chipGain.isChecked = true
+            changeBackgroundColor(true)
+        } else {
+            binding.chipLoss.isChecked = true
+            changeBackgroundColor(false)
+        }
     }
 
     fun getMoviment(){
