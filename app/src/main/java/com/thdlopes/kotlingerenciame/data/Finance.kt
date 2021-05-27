@@ -11,6 +11,7 @@ data class Finance(
     var year: String? = null,
     var value: String? = null,
     var moviment: String? = null,
+    var userId: String? = null,
 
     @get:Exclude
     var isDeleted: Boolean = false

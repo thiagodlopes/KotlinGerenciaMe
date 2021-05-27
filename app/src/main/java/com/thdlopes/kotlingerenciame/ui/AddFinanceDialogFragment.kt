@@ -2,6 +2,7 @@ package com.thdlopes.kotlingerenciame.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.ChipGroup
+import com.google.firebase.auth.FirebaseAuth
 import com.thdlopes.kotlingerenciame.R
 import com.thdlopes.kotlingerenciame.data.Finance
 import com.thdlopes.kotlingerenciame.data.FinanceViewModel
@@ -23,6 +25,8 @@ class AddFinanceDialogFragment : DialogFragment() {
     private var getMoviment: String? = null
 
     private lateinit var viewModel: FinanceViewModel
+
+    private  lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,9 @@ class AddFinanceDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser?.uid.toString()
+
         viewModel.result.observe(viewLifecycleOwner, Observer {
             val message = if(it == null){
                 getString(R.string.added_finance)
@@ -62,6 +69,7 @@ class AddFinanceDialogFragment : DialogFragment() {
             val year = binding.editTextYear.text.toString().trim()
             val value = binding.editTextFinanceValue.text.toString().trim()
             val moviment = getMoviment
+            val userId = firebaseUser
 
             if(name.isEmpty()){
                 binding.editTextFinanceName.error = "Este campo é obrigatório"
@@ -100,9 +108,9 @@ class AddFinanceDialogFragment : DialogFragment() {
             finance.year = year
             finance.value = value
             finance.moviment = moviment
+            finance.userId = userId
 
             viewModel.addFinance(finance)
-
         }
 
     }
