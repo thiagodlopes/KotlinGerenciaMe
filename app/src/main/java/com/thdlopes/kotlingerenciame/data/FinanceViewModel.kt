@@ -3,17 +3,16 @@ package com.thdlopes.kotlingerenciame.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.thdlopes.kotlingerenciame.data.NODE_FINANCES
 import java.lang.Exception
-import com.google.firebase.database.FirebaseDatabase
 
 class FinanceViewModel: ViewModel() {
 
-    private val dbfinances = FirebaseDatabase.getInstance().getReference(NODE_FINANCES)
+    private  lateinit var firebaseAuth: FirebaseAuth
 
+    private val dbfinances = FirebaseDatabase.getInstance().getReference(NODE_FINANCES)
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
 
@@ -60,7 +59,11 @@ class FinanceViewModel: ViewModel() {
     }
 
     fun getRealTimeUpdate(){
-        dbfinances.addChildEventListener(childEventListener)
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser?.uid.toString()
+
+        var query :Query = FirebaseDatabase.getInstance().getReference("finances").orderByChild("userId").equalTo( firebaseUser)
+        query.addChildEventListener(childEventListener)
     }
 
     fun updateFinance(finance: Finance){
