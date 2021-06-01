@@ -11,7 +11,7 @@
             android:title="Finanças" />
         <item
             android:id="@+id/reportFragment"
-            android:icon="@drawable/ic_finance"
+            android:icon="@drawable/ic_report"
             android:title="Relatório" />
     </group>
 
