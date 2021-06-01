@@ -66,6 +66,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             setToolbarTitle("Finanças")
             changeFragment(FinanceFragment())
         }
+        if(item.itemId == R.id.reportFragment){
+            setToolbarTitle("Relatório")
+            changeFragment(ReportFragment())
+        }
         if(item.itemId == R.id.logout){
                     firebaseAuth.signOut()
                     startActivity(Intent(this, LoginActivity::class.java))

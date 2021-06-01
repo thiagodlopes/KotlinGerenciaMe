@@ -9,6 +9,10 @@
             android:id="@+id/financeFragment"
             android:icon="@drawable/ic_finance"
             android:title="Finanças" />
+        <item
+            android:id="@+id/reportFragment"
+            android:icon="@drawable/ic_finance"
+            android:title="Relatório" />
     </group>
 
     <group android:id="@+id/menu_bottom">
