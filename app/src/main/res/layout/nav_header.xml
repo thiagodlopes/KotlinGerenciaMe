@@ -6,7 +6,8 @@
     android:layout_height="176dp"
     android:background="@color/orange"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:paddingLeft="16dp"
+    android:paddingBottom="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
@@ -20,12 +21,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="User Name"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="Gerencia.me"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user@email.com"/>
+
 </LinearLayout>
