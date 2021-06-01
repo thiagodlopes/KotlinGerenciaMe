@@ -1,14 +1,18 @@
 package com.thdlopes.kotlingerenciame.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.thdlopes.kotlingerenciame.R
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -17,11 +21,15 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private lateinit var drawerLayout: DrawerLayout
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
+    private  lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        firebaseAuth = FirebaseAuth.getInstance()
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
@@ -58,6 +66,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             setToolbarTitle("Finanças")
             changeFragment(FinanceFragment())
         }
+        if(item.itemId == R.id.logout){
+                    firebaseAuth.signOut()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    Toast.makeText(this, "Faça Login para consultar os dados", Toast.LENGTH_SHORT).show()
+        }
         return true
     }
 
@@ -65,7 +78,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         supportActionBar?.title = title
     }
 
-    fun changeFragment(frag: Fragment){
+    private fun changeFragment(frag: Fragment){
         val fragment = supportFragmentManager.beginTransaction()
         fragment.replace(R.id.fragment_container,frag).commit()
     }

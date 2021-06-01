@@ -3,13 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/profileFragment"
-            android:title="Perfil"
             android:icon="@drawable/ic_manage_account"
-            />
+            android:title="Perfil" />
         <item
             android:id="@+id/financeFragment"
-            android:title="Finanças"
             android:icon="@drawable/ic_finance"
-            />
+            android:title="Finanças" />
+    </group>
+
+    <group android:id="@+id/menu_bottom">
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
     </group>
 </menu>
