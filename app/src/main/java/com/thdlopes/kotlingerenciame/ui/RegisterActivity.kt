@@ -27,6 +27,9 @@ class RegisterActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        binding.textViewLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
         binding.buttonRegister.setOnClickListener {
 
             validateData()
