@@ -19,6 +19,15 @@ class FinanceAdapter: RecyclerView.Adapter<FinanceAdapter.ViewHolder>() {
         holder.binding.textViewName.text = finances[position].name
         holder.binding.textViewDate.text = (finances[position].day + "/" + finances[position].month + "/" + finances[position].year )
         holder.binding.textViewValue.text = finances[position].value
+        if (finances[position].moviment == "Ganho") {
+            holder.binding.textViewSymbol.text = "+ "
+            holder.binding.textViewSymbol.setTextColor(Color.parseColor("#008000"))
+            holder.binding.textViewValue.setTextColor(Color.parseColor("#008000"))
+        } else {
+            holder.binding.textViewSymbol.text = "- "
+            holder.binding.textViewSymbol.setTextColor(Color.parseColor("#cc0000"))
+            holder.binding.textViewValue.setTextColor(Color.parseColor("#cc0000"))
+        }
     }
 
     override fun getItemCount(): Int {

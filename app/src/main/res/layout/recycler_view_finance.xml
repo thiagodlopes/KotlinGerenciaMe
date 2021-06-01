@@ -21,10 +21,21 @@
             android:text="Finance Name"/>
 
         <TextView
+            android:id="@+id/textViewSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewName"
+            android:text="*"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/textViewValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewName"
+            android:layout_toEndOf="@+id/textViewSymbol"
             android:text="valor"
             android:layout_marginTop="12dp"
             android:textColor="@color/black"
