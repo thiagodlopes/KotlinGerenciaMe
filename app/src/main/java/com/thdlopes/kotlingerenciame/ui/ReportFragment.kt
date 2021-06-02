@@ -18,6 +18,7 @@ class ReportFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val adapter = ReportAdapter()
+    private val reportAdapter = ReportResultAdapter()
 
     private lateinit var viewModel: FinanceViewModel
 
@@ -40,9 +41,11 @@ class ReportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewReport.adapter = adapter
+        binding.recyclerViewReportResult.adapter = reportAdapter
 
         viewModel.finance.observe(viewLifecycleOwner, Observer {
             adapter.addFinance(it)
+            reportAdapter.addFinance(it)
         })
 
         viewModel.getRealTimeUpdate()
