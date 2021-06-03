@@ -65,31 +65,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="30dp"
-        android:gravity="center_horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        tools:layout_editor_absoluteX="20dp">
 
         <TextView
             android:id="@+id/textViewBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="Não tem uma conta?"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center_horizontal"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foreground="?attr/selectableItemBackground"
-            android:text="Criar Conta"
             android:paddingLeft="10dp"
-            android:textStyle="bold"
+            android:text="Criar Conta"
             android:textColor="#3366CC"
-            app:layout_constraintStart_toEndOf="@+id/textViewBottom"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewBottom" />
 
     </LinearLayout>
 
