@@ -19,6 +19,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private var email = ""
     private var password = ""
+    private var passwordConfirmation = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +41,18 @@ class RegisterActivity : AppCompatActivity() {
     private fun validateData() {
         email = binding.editTextRegisterEmail.text.toString().trim()
         password = binding.editTextRegisterPassword.text.toString().trim()
+        passwordConfirmation = binding.editTextRegisterPasswordConfirmation.text.toString().trim()
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.editTextRegisterEmail.error = "Email inválido"
         }
         else if (password.isEmpty()){
             binding.editTextRegisterPassword.error = "Campo em branco"
+
+        }
+        else if (password != passwordConfirmation){
+            binding.editTextRegisterPasswordConfirmation.error = "Os campos devem ser iguais"
+            binding.editTextRegisterPassword.error = "Os campos devem ser iguais"
 
         } else {
             firebaseRegister()
