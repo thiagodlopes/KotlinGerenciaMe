@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thdlopes.kotlingerenciame.data.Finance
 import com.thdlopes.kotlingerenciame.databinding.RecyclerViewReportResultBinding
+import java.math.BigDecimal
 
 class ReportResultAdapter: RecyclerView.Adapter<ReportResultAdapter.ViewHolder>() {
 
@@ -17,18 +18,21 @@ class ReportResultAdapter: RecyclerView.Adapter<ReportResultAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var value :String? = null //setText não aceita concatenação
-        var total = 0.0F;
+        var value :String? = "" //setText não aceita concatenação
+        val zero = BigDecimal("0.00")
+        var total = BigDecimal("0.00")
         for ( i in 0 until  finances.size){
             when(finances[i].moviment){
-                "Ganho" -> total += finances[i].value.toString().toFloat()
-                "Gasto" -> total -= finances[i].value.toString().toFloat()
+                "Ganho" -> total += (finances[i].value.toString().toBigDecimal())
+                "Gasto" -> total -= (finances[i].value.toString().toBigDecimal())
             }
         }
-        if (total > 0.0F){
+
+        if (total > zero){
             value = "+"
             holder.binding.textViewResultReport.setTextColor(Color.parseColor("#008000"))
-        } else if (total < 0.0F){
+        } else if (total < zero){
+            value = ""
             holder.binding.textViewResultReport.setTextColor(Color.parseColor("#cc0000"))
         } else holder.binding.textViewResultReport.setTextColor(Color.parseColor("#d3d3d3"))
 
