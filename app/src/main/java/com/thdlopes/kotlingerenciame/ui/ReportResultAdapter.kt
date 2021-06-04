@@ -21,13 +21,16 @@ class ReportResultAdapter: RecyclerView.Adapter<ReportResultAdapter.ViewHolder>(
         var value :String? = "" //setText não aceita concatenação
         val zero = BigDecimal("0.00")
         var total = BigDecimal("0.00")
+        var gains = BigDecimal("0.00")
+        var losses = BigDecimal("0.00")
         for ( i in 0 until  finances.size){
             when(finances[i].moviment){
-                "Ganho" -> total += (finances[i].value.toString().toBigDecimal())
-                "Gasto" -> total -= (finances[i].value.toString().toBigDecimal())
+                "Ganho" -> gains += (finances[i].value.toString().toBigDecimal())
+                "Gasto" -> losses += (finances[i].value.toString().toBigDecimal())
             }
         }
-
+        total += gains
+        total -= losses
         if (total > zero){
             value = "+"
             holder.binding.textViewResultReport.setTextColor(Color.parseColor("#008000"))
@@ -36,8 +39,10 @@ class ReportResultAdapter: RecyclerView.Adapter<ReportResultAdapter.ViewHolder>(
             holder.binding.textViewResultReport.setTextColor(Color.parseColor("#cc0000"))
         } else holder.binding.textViewResultReport.setTextColor(Color.parseColor("#d3d3d3"))
 
-        value += total.toString().trim()
+        value += total.toString()
         holder.binding.textViewResultReport.text = value
+        holder.binding.textViewGainReport.text = gains.toString()
+        holder.binding.textViewLossReport.text = losses.toString()
     }
 
     override fun getItemCount(): Int {

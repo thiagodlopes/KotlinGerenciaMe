@@ -1,36 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:stretchColumns="*">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/textViewResultReport"
-                    android:gravity="right"
-                    android:padding="10dp"
-                    android:text="Saldo:"
+                    android:id="@+id/textViewGain"
+                    android:text="Ganhos (R$)"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:paddingTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewLoss"
+                    android:text="Gastos (R$)"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:paddingTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/textViewResult"
+                    android:text="Saldo (R$)"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:paddingTop="10dp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/textViewGainReport"
+                    android:padding="10dp"
+                    android:text="R$"
+                    android:textColor="@color/green"
+                    android:textSize="16sp"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/textViewLossReport"
+                    android:padding="10dp"
+                    android:text="R$"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/textViewResultReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:text="Valor"
+                    android:padding="10dp"
+                    android:text="R$"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
-        </RelativeLayout>
+                    android:textSize="16sp"
+                    android:textAlignment="center"/>
+        </TableRow>
 
-</LinearLayout>
+</TableLayout>
+    <!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_toStartOf="@+id/textViewResultReport"-->
+<!--                android:gravity="right"-->
+<!--                android:padding="10dp"-->
+<!--                android:text="Saldo:"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewResultReport"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:text="Valor"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp" />-->
