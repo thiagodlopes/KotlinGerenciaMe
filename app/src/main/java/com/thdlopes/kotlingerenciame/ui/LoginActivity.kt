@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.thdlopes.kotlingerenciame.databinding.ActivityLoginBinding
 
@@ -27,6 +29,19 @@ class LoginActivity : AppCompatActivity() {
 
         binding.textViewRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.textViewResetPassword.setOnClickListener {
+            email = binding.editTextEmail.text.toString().trim()
+
+            if (email != null && email != "") {
+                firebaseAuth.sendPasswordResetEmail(email!!)
+                Toast.makeText(this, "Verifique o e-mail $email para alterar a senha", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.editTextEmail.error = "Insira seu e-mail e depois clique em 'Redefinir Senha' para seguir com a troca de senha."
+
+            }
+
         }
 
         binding.buttonLogin.setOnClickListener {
