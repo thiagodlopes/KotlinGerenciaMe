@@ -55,19 +55,24 @@ class LoginActivity : AppCompatActivity() {
                 val firebaseUser = firebaseAuth.currentUser
                 val email = firebaseUser!!.email
 
-                Toast.makeText(this, "Entrou como  $email", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-
+                if (firebaseUser.isEmailVerified) {
+                    Toast.makeText(this, "Entrou como  $email", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()}
+                else {
+                    Toast.makeText(this, "Um e-mail foi enviado para $email verifique o e-mail para fazer o Login", Toast.LENGTH_SHORT).show()
+                    firebaseUser.sendEmailVerification()
+                }
             }
             .addOnFailureListener {e->
                 Toast.makeText(this, "Login falhou devido a ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
+
     private fun checkUser() {
         val firebaseUser = firebaseAuth.currentUser
-        if(firebaseUser != null){
+        if(firebaseUser != null && firebaseUser.isEmailVerified){
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

@@ -65,10 +65,12 @@ class RegisterActivity : AppCompatActivity() {
                 val firebaseUser = firebaseAuth.currentUser
                 val email = firebaseUser!!.email
 
-                Toast.makeText(this, "Cadastro realizado com o email $email", Toast.LENGTH_SHORT).show()
+                firebaseUser?.sendEmailVerification().addOnSuccessListener() {
+                    Toast.makeText(this, "Por favor verifique o $email para prosseguir", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+                    .addOnFailureListener { Toast.makeText(this, "Verificação não pode enviada.", Toast.LENGTH_SHORT).show() }
 
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
             }
             .addOnFailureListener { e->
                 Toast.makeText(this, "Cadastro falhou devido a ${e.message}", Toast.LENGTH_SHORT).show()
