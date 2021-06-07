@@ -21,11 +21,11 @@ class ReportAdapter: RecyclerView.Adapter<ReportAdapter.ViewHolder>() {
         holder.binding.textViewDate.text = (finances[position].day + "/" + finances[position].month + "/" + finances[position].year )
 
         if (finances[position].moviment == "Ganho") {
-            value = "+ " + finances[position].value
+            value = "+" + finances[position].value
             holder.binding.textViewValue.text = value
             holder.binding.textViewValue.setTextColor(Color.parseColor("#008000"))
         } else {
-            value = "- " + finances[position].value
+            value = "-" + finances[position].value
             holder.binding.textViewValue.text = value
             holder.binding.textViewValue.setTextColor(Color.parseColor("#cc0000"))
         }

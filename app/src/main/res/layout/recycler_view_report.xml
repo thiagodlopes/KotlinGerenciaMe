@@ -15,6 +15,7 @@
             android:padding="10dp"
             android:text="Finance Name"
             android:textColor="@color/black"
+            android:textAlignment="center"
             android:textSize="16sp" />
 
         <TextView
@@ -22,6 +23,7 @@
             android:padding="10dp"
             android:text="Finance Date"
             android:textColor="@color/black"
+            android:textAlignment="center"
             android:textSize="16sp" />
 
         <TextView
@@ -29,6 +31,7 @@
             android:padding="10dp"
             android:text="Finance Value"
             android:textColor="@color/black"
+            android:textAlignment="center"
             android:textSize="16sp" />
     </TableRow>
 
