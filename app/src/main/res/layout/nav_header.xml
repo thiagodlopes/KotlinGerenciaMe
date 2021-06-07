@@ -16,7 +16,7 @@
         android:adjustViewBounds="true"
         android:maxWidth="80dp"
         android:maxHeight="80dp"
-        android:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/img_white_logo"/>
 
     <TextView
         android:layout_width="wrap_content"
