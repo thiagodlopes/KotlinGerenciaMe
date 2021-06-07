@@ -1,12 +1,19 @@
 package com.thdlopes.kotlingerenciame.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
+import com.thdlopes.kotlingerenciame.data.FinanceViewModel
 import com.thdlopes.kotlingerenciame.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -16,6 +23,8 @@ class ProfileFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
+    private var newEmail = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,7 +33,9 @@ class ProfileFragment : Fragment() {
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null){
             val email = firebaseUser.email
+            val uid = firebaseUser.uid
             binding.textViewUserEmail.text = email
+            binding.textViewShowUid.text = uid
         }else{
             startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
@@ -43,11 +54,44 @@ class ProfileFragment : Fragment() {
 
 
         firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
+        var email = firebaseUser!!.email
         checkUser()
 
-        binding.buttonLogout.setOnClickListener {
-            firebaseAuth.signOut()
-            checkUser()
+        binding.textViewEditEmail.setOnClickListener {
+            validateNewEmail()
+
         }
+
+        binding.textViewResetPassword.setOnClickListener {
+            firebaseAuth.sendPasswordResetEmail(email!!)
+            Toast.makeText(requireContext(), "Verifique seu e-mail para alterar a senha", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateNewEmail() {
+        newEmail = binding.editTextNewEmail.text.toString().trim()
+        if (!Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()){
+            binding.editTextNewEmail.error = "Email inválido"
+        } else{
+            createDialog()
+        }
+    }
+
+    private fun createDialog() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
+        AlertDialog.Builder(requireContext()).also {
+            it.setTitle("Confirmar alteração de e-mail")
+            it.setMessage("Você precisará relogar depois de alterar seu e-mail e verificá-lo.Tem certeza que quer alterar seu e-mail para $newEmail?" )
+            it.setPositiveButton("Sim, alterar"){ dialog, which ->
+                firebaseUser!!.updateEmail(newEmail).addOnSuccessListener {
+                    firebaseUser.sendEmailVerification()
+                    firebaseAuth.signOut()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                }
+                Toast.makeText(context, "E-mail alterado. Verifique o novo e-mail para prosseguir.", Toast.LENGTH_SHORT).show()
+            }
+        }.create().show()
     }
 }
