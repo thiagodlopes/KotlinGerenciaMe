@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             setToolbarTitle("Relatório")
             changeFragment(ReportFragment())
         }
+        if(item.itemId == R.id.emailFragment){
+            setToolbarTitle("Contatar Suporte")
+            changeFragment(EmailFragment())
+        }
         if(item.itemId == R.id.logout){
                     firebaseAuth.signOut()
                     startActivity(Intent(this, LoginActivity::class.java))

@@ -13,6 +13,10 @@
             android:id="@+id/reportFragment"
             android:icon="@drawable/ic_report"
             android:title="Relatório" />
+        <item
+            android:id="@+id/emailFragment"
+            android:icon="@drawable/ic_support"
+            android:title="Contactar Suporte" />
     </group>
 
     <group android:id="@+id/menu_bottom">
